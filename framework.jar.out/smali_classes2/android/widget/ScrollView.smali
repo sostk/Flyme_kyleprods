@@ -38,6 +38,10 @@
 
 .field private mFlingStrictSpan:Landroid/os/StrictMode$Span;
 
+.field private mFlymeFirstInit:Z
+
+.field private mFlymeIsThemeLight:Z
+
 .field private mIsBeingDragged:Z
 
 .field private mIsLayoutDirty:Z
@@ -96,12 +100,10 @@
     .param p2, "attrs"    # Landroid/util/AttributeSet;
 
     .prologue
-    .line 172
-    const v0, 0x1010080
+    const v0, #android:attr@scrollViewStyle#t
 
     invoke-direct {p0, p1, p2, v0}, Landroid/widget/ScrollView;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 171
     return-void
 .end method
 
@@ -199,10 +201,10 @@
 
     invoke-virtual {p0, v1}, Landroid/widget/ScrollView;->setFillViewport(Z)V
 
-    .line 188
     invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
 
-    .line 179
+    invoke-direct/range {p0 .. p0}, Landroid/widget/ScrollView;->initFlymeStyles()V
+
     return-void
 .end method
 
@@ -2141,24 +2143,28 @@
     .param p1, "canvas"    # Landroid/graphics/Canvas;
 
     .prologue
-    .line 1712
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->draw(Landroid/graphics/Canvas;)V
 
-    .line 1713
+    invoke-direct/range {p0 .. p0}, Landroid/widget/ScrollView;->isFlymeThemeLight()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    return-void
+
+    :cond_0
     iget-object v7, p0, Landroid/widget/ScrollView;->mEdgeGlowTop:Landroid/widget/EdgeEffect;
 
-    if-eqz v7, :cond_3
+    if-eqz v7, :cond_4
 
-    .line 1714
     iget v3, p0, Landroid/widget/ScrollView;->mScrollY:I
 
-    .line 1715
     .local v3, "scrollY":I
     invoke-virtual {p0}, Landroid/widget/ScrollView;->getClipToPadding()Z
 
     move-result v0
 
-    .line 1716
     .local v0, "clipToPadding":Z
     iget-object v7, p0, Landroid/widget/ScrollView;->mEdgeGlowTop:Landroid/widget/EdgeEffect;
 
@@ -2166,18 +2172,15 @@
 
     move-result v7
 
-    if-nez v7, :cond_1
+    if-nez v7, :cond_2
 
-    .line 1717
     invoke-virtual {p1}, Landroid/graphics/Canvas;->save()I
 
     move-result v2
 
-    .line 1722
     .local v2, "restoreCount":I
-    if-eqz v0, :cond_4
+    if-eqz v0, :cond_5
 
-    .line 1723
     invoke-virtual {p0}, Landroid/widget/ScrollView;->getWidth()I
 
     move-result v7
@@ -2243,40 +2246,34 @@
 
     move-result v7
 
-    if-eqz v7, :cond_0
+    if-eqz v7, :cond_1
 
-    .line 1736
     invoke-virtual {p0}, Landroid/widget/ScrollView;->postInvalidateOnAnimation()V
 
-    .line 1738
-    :cond_0
+    :cond_1
     invoke-virtual {p1, v2}, Landroid/graphics/Canvas;->restoreToCount(I)V
 
-    .line 1740
     .end local v1    # "height":I
     .end local v2    # "restoreCount":I
     .end local v4    # "translateX":F
     .end local v5    # "translateY":F
     .end local v6    # "width":I
-    :cond_1
+    :cond_2
     iget-object v7, p0, Landroid/widget/ScrollView;->mEdgeGlowBottom:Landroid/widget/EdgeEffect;
 
     invoke-virtual {v7}, Landroid/widget/EdgeEffect;->isFinished()Z
 
     move-result v7
 
-    if-nez v7, :cond_3
+    if-nez v7, :cond_4
 
-    .line 1741
     invoke-virtual {p1}, Landroid/graphics/Canvas;->save()I
 
     move-result v2
 
-    .line 1746
     .restart local v2    # "restoreCount":I
-    if-eqz v0, :cond_5
+    if-eqz v0, :cond_6
 
-    .line 1747
     invoke-virtual {p0}, Landroid/widget/ScrollView;->getWidth()I
 
     move-result v7
@@ -2363,16 +2360,13 @@
 
     move-result v7
 
-    if-eqz v7, :cond_2
+    if-eqz v7, :cond_3
 
-    .line 1762
     invoke-virtual {p0}, Landroid/widget/ScrollView;->postInvalidateOnAnimation()V
 
-    .line 1764
-    :cond_2
+    :cond_3
     invoke-virtual {p1, v2}, Landroid/graphics/Canvas;->restoreToCount(I)V
 
-    .line 1711
     .end local v0    # "clipToPadding":Z
     .end local v1    # "height":I
     .end local v2    # "restoreCount":I
@@ -2380,14 +2374,14 @@
     .end local v4    # "translateX":F
     .end local v5    # "translateY":F
     .end local v6    # "width":I
-    :cond_3
+    :cond_4
     return-void
 
     .line 1728
     .restart local v0    # "clipToPadding":Z
     .restart local v2    # "restoreCount":I
     .restart local v3    # "scrollY":I
-    :cond_4
+    :cond_5
     invoke-virtual {p0}, Landroid/widget/ScrollView;->getWidth()I
 
     move-result v6
@@ -2414,7 +2408,7 @@
     .end local v4    # "translateX":F
     .end local v5    # "translateY":F
     .end local v6    # "width":I
-    :cond_5
+    :cond_6
     invoke-virtual {p0}, Landroid/widget/ScrollView;->getWidth()I
 
     move-result v6
@@ -6308,5 +6302,124 @@
     invoke-virtual {p0, v0, v1}, Landroid/widget/ScrollView;->smoothScrollBy(II)V
 
     .line 1222
+    return-void
+.end method
+
+.method private initFlymeStyles()V
+    .locals 1
+
+    .prologue
+    const/4 v0, 0x1
+
+    iput v0, p0, Landroid/widget/ScrollView;->mOverflingDistance:I
+
+    return-void
+.end method
+
+.method private isFlymeThemeLight()Z
+    .locals 1
+
+    .prologue
+    iget-boolean v0, p0, Landroid/widget/ScrollView;->mFlymeFirstInit:Z
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {p0}, Landroid/widget/ScrollView;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/content/Context;->isThemeLight()Z
+
+    move-result v0
+
+    iput-boolean v0, p0, Landroid/widget/ScrollView;->mFlymeIsThemeLight:Z
+
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Landroid/widget/ScrollView;->mFlymeFirstInit:Z
+
+    :cond_0
+    iget-boolean v0, p0, Landroid/widget/ScrollView;->mFlymeIsThemeLight:Z
+
+    return v0
+.end method
+
+.method public dispatchStatusBarTap()Z
+    .locals 1
+
+    .prologue
+    invoke-virtual {p0}, Landroid/widget/ScrollView;->onStatusBarTapScrollTop()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public isDelayTopOverScrollEnabled()Z
+    .locals 1
+
+    .prologue
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method protected onStatusBarTapScrollTop()Z
+    .locals 5
+
+    .prologue
+    const/4 v4, 0x0
+
+    iget-object v0, p0, Landroid/widget/ScrollView;->mScroller:Landroid/widget/OverScroller;
+
+    if-eqz v0, :cond_0
+
+    iget v0, p0, Landroid/widget/ScrollView;->mScrollY:I
+
+    if-lez v0, :cond_0
+
+    iget-object v0, p0, Landroid/widget/ScrollView;->mScroller:Landroid/widget/OverScroller;
+
+    iget v1, p0, Landroid/widget/ScrollView;->mScrollX:I
+
+    iget v2, p0, Landroid/widget/ScrollView;->mScrollY:I
+
+    iget v3, p0, Landroid/widget/ScrollView;->mScrollY:I
+
+    neg-int v3, v3
+
+    invoke-virtual {v0, v1, v2, v4, v3}, Landroid/widget/OverScroller;->startScroll(IIII)V
+
+    invoke-virtual {p0}, Landroid/widget/ScrollView;->invalidate()V
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_0
+    return v4
+.end method
+
+.method public setDelayTopOverScrollEnabled(Z)V
+    .locals 0
+    .param p1, "enabled"    # Z
+
+    .prologue
+    return-void
+.end method
+
+.method public setDelayTopOverScrollOffset(I)V
+    .locals 0
+    .param p1, "offset"    # I
+
+    .prologue
+    return-void
+.end method
+
+.method public springBackDelay(I)V
+    .locals 0
+    .param p1, "delayTime"    # I
+
+    .prologue
     return-void
 .end method

@@ -269,6 +269,8 @@
 
 .field public static final FLASHLIGHT:Ljava/lang/String; = "android.permission.FLASHLIGHT"
 
+.field public static final FLYME_SWITCH_SYSTEM_MODE:Ljava/lang/String; = "android.permission.FLYME_SWITCH_SYSTEM_MODE"
+
 .field public static final FORCE_BACK:Ljava/lang/String; = "android.permission.FORCE_BACK"
 
 .field public static final FORCE_STOP_PACKAGES:Ljava/lang/String; = "android.permission.FORCE_STOP_PACKAGES"
@@ -369,6 +371,12 @@
 .field public static final MASTER_CLEAR:Ljava/lang/String; = "android.permission.MASTER_CLEAR"
 
 .field public static final MEDIA_CONTENT_CONTROL:Ljava/lang/String; = "android.permission.MEDIA_CONTENT_CONTROL"
+
+.field public static final MEIZU_CONTROL_PACKAGE_PERMISSIONS:Ljava/lang/String; = "android.permission.MEIZU_CONTROL_PACKAGE_PERMISSIONS"
+
+.field public static final MEIZU_DATASAVE_MODE_CHANGED:Ljava/lang/String; = "android.permission.send.MEIZU_DATASAVE_MODE_CHANGED"
+
+.field public static final MEIZU_SMART_LOCK:Ljava/lang/String; = "android.permission.MEIZU_SMART_LOCK"
 
 .field public static final MODIFY_APPWIDGET_BIND_PERMISSIONS:Ljava/lang/String; = "android.permission.MODIFY_APPWIDGET_BIND_PERMISSIONS"
 

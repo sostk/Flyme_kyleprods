@@ -177,6 +177,28 @@
     .param p1, "other"    # Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;
 
     .prologue
+    invoke-direct/range {p0 .. p0}, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->isFlymeInputMethodInfoId()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const/4 v0, -0x1
+
+    return v0
+
+    :cond_0
+    invoke-direct/range {p0 .. p1}, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->isFlymeOtherInputMethodInfoId(Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_1
     const/4 v3, 0x1
 
     const/4 v2, -0x1
@@ -188,26 +210,22 @@
 
     move-result v0
 
-    if-eqz v0, :cond_0
+    if-eqz v0, :cond_2
 
-    .line 100
     return v3
 
-    .line 102
-    :cond_0
+    :cond_2
     iget-object v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImeName:Ljava/lang/CharSequence;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_1
+    if-eqz v0, :cond_3
 
-    .line 103
     return v2
 
-    .line 105
-    :cond_1
+    :cond_3
     iget-object v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImeName:Ljava/lang/CharSequence;
 
     iget-object v1, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImeName:Ljava/lang/CharSequence;
@@ -216,7 +234,7 @@
 
     move-result v0
 
-    if-nez v0, :cond_2
+    if-nez v0, :cond_4
 
     .line 106
     iget-object v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImeName:Ljava/lang/CharSequence;
@@ -237,8 +255,7 @@
 
     return v0
 
-    .line 108
-    :cond_2
+    :cond_4
     iget-object v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mSubtypeName:Ljava/lang/CharSequence;
 
     iget-object v1, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mSubtypeName:Ljava/lang/CharSequence;
@@ -247,77 +264,63 @@
 
     move-result v0
 
-    if-eqz v0, :cond_3
+    if-eqz v0, :cond_5
 
-    .line 109
     const/4 v0, 0x0
 
     return v0
 
-    .line 111
-    :cond_3
-    iget-boolean v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLocale:Z
-
-    if-eqz v0, :cond_4
-
-    .line 112
-    return v2
-
-    .line 114
-    :cond_4
-    iget-boolean v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLocale:Z
-
-    if-eqz v0, :cond_5
-
-    .line 115
-    return v3
-
-    .line 117
     :cond_5
-    iget-boolean v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLanguage:Z
+    iget-boolean v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLocale:Z
 
     if-eqz v0, :cond_6
 
-    .line 118
     return v2
 
-    .line 120
     :cond_6
-    iget-boolean v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLanguage:Z
+    iget-boolean v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLocale:Z
 
     if-eqz v0, :cond_7
 
-    .line 121
     return v3
 
-    .line 123
     :cond_7
+    iget-boolean v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLanguage:Z
+
+    if-eqz v0, :cond_8
+
+    return v2
+
+    :cond_8
+    iget-boolean v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mIsSystemLanguage:Z
+
+    if-eqz v0, :cond_9
+
+    return v3
+
+    :cond_9
     iget-object v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mSubtypeName:Ljava/lang/CharSequence;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_8
+    if-eqz v0, :cond_a
 
-    .line 124
     return v3
 
-    .line 126
-    :cond_8
+    :cond_a
     iget-object v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mSubtypeName:Ljava/lang/CharSequence;
 
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
     move-result v0
 
-    if-eqz v0, :cond_9
+    if-eqz v0, :cond_b
 
-    .line 127
     return v2
 
-    .line 129
-    :cond_9
+    :cond_b
     iget-object v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mSubtypeName:Ljava/lang/CharSequence;
 
     invoke-interface {v0}, Ljava/lang/CharSequence;->toString()Ljava/lang/String;
@@ -342,7 +345,6 @@
     .param p1, "other"    # Ljava/lang/Object;
 
     .prologue
-    .line 98
     check-cast p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;
 
     .end local p1    # "other":Ljava/lang/Object;
@@ -362,13 +364,10 @@
 
     const/4 v3, 0x0
 
-    .line 145
     if-ne p1, p0, :cond_0
 
-    .line 146
     return v4
 
-    .line 148
     :cond_0
     instance-of v1, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;
 
@@ -376,10 +375,8 @@
 
     move-object v0, p1
 
-    .line 149
     check-cast v0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;
 
-    .line 150
     .local v0, "that":Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;
     iget-object v1, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImi:Landroid/view/inputmethod/InputMethodInfo;
 
@@ -391,10 +388,8 @@
 
     if-nez v1, :cond_1
 
-    .line 151
     return v3
 
-    .line 153
     :cond_1
     iget v1, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mSubtypeId:I
 
@@ -402,14 +397,12 @@
 
     if-eq v1, v2, :cond_2
 
-    .line 154
     return v3
 
-    .line 156
+    .line 108
     :cond_2
     return v4
 
-    .line 158
     .end local v0    # "that":Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;
     :cond_3
     return v3
@@ -515,4 +508,63 @@
     move-result-object v0
 
     return-object v0
+.end method
+
+.method private isFlymeInputMethodInfoId()Z
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImi:Landroid/view/inputmethod/InputMethodInfo;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImi:Landroid/view/inputmethod/InputMethodInfo;
+
+    invoke-virtual {v0}, Landroid/view/inputmethod/InputMethodInfo;->getId()Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "com.meizu.flyme.input/com.meizu.input.MzInputService"
+
+    invoke-static {v0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method private isFlymeOtherInputMethodInfoId(Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;)Z
+    .locals 2
+    .param p1, "other"    # Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;
+
+    .prologue
+    iget-object v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImi:Landroid/view/inputmethod/InputMethodInfo;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p1, Lcom/android/internal/inputmethod/InputMethodSubtypeSwitchingController$ImeSubtypeListItem;->mImi:Landroid/view/inputmethod/InputMethodInfo;
+
+    invoke-virtual {v0}, Landroid/view/inputmethod/InputMethodInfo;->getId()Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "com.meizu.flyme.input/com.meizu.input.MzInputService"
+
+    invoke-static {v0, v1}, Landroid/text/TextUtils;->equals(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method

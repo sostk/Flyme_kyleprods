@@ -3576,24 +3576,19 @@
 
     move-result-object v2
 
-    .line 2822
-    const v3, 0x1160031
+    const v3, #android:^attr-private@accessibilityFocusedDrawable#t
 
     const/4 v4, 0x1
 
-    .line 2821
     invoke-virtual {v2, v3, v1, v4}, Landroid/content/res/Resources$Theme;->resolveAttribute(ILandroid/util/TypedValue;Z)Z
 
     move-result v0
 
-    .line 2823
     .local v0, "resolved":Z
     if-eqz v0, :cond_0
 
-    .line 2824
     iget-object v2, p0, Landroid/view/ViewRootImpl;->mAttachInfo:Landroid/view/View$AttachInfo;
 
-    .line 2825
     iget-object v3, p0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
 
     iget-object v3, v3, Landroid/view/View;->mContext:Landroid/content/Context;
@@ -5446,7 +5441,7 @@
     .local v4, "packageMetrics":Landroid/util/DisplayMetrics;
     iget-object v6, p0, Landroid/view/ViewRootImpl;->mTmpValue:Landroid/util/TypedValue;
 
-    const v7, 0x105000e
+    const v7, #android:dimen@config_prefDialogWidth#t
 
     const/4 v8, 0x1
 
@@ -15945,7 +15940,7 @@
 
     iget-object v4, v0, Landroid/view/ViewRootImpl;->mView:Landroid/view/View;
 
-    if-nez v4, :cond_13
+    if-nez v4, :cond_14
 
     .line 454
     move-object/from16 v0, p1
@@ -16295,7 +16290,7 @@
 
     iget-object v4, v0, Landroid/view/ViewRootImpl;->mTranslator:Landroid/content/res/CompatibilityInfo$Translator;
 
-    if-eqz v4, :cond_a
+    if-eqz v4, :cond_b
 
     const/4 v4, 0x1
 
@@ -16312,7 +16307,7 @@
 
     iget-object v4, v0, Landroid/view/ViewRootImpl;->mTranslator:Landroid/content/res/CompatibilityInfo$Translator;
 
-    if-nez v4, :cond_b
+    if-nez v4, :cond_c
 
     const/high16 v4, 0x3f800000    # 1.0f
 
@@ -16542,10 +16537,8 @@
 
     invoke-virtual {v4, v5, v6, v7, v8}, Landroid/graphics/Rect;->set(IIII)V
 
-    .line 562
-    if-gez v21, :cond_d
+    if-gez v21, :cond_e
 
-    .line 563
     move-object/from16 v0, p0
 
     iget-object v4, v0, Landroid/view/ViewRootImpl;->mAttachInfo:Landroid/view/View$AttachInfo;
@@ -16582,18 +16575,30 @@
 
     invoke-virtual {v0, v4, v5}, Landroid/view/ViewRootImpl;->setAccessibilityFocus(Landroid/view/View;Landroid/view/accessibility/AccessibilityNodeInfo;)V
 
-    .line 568
+    move-object/from16 v4, p0
+
+    move/from16 v5, v21
+
+    invoke-direct {v4, v5}, Landroid/view/ViewRootImpl;->isFlymeKeyguardAllowed(I)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_a
+
+    monitor-exit p0
+
+    return-void
+
+    :cond_a
     packed-switch v21, :pswitch_data_0
 
-    .line 607
     new-instance v4, Ljava/lang/RuntimeException;
 
-    .line 608
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v6, "Unable to add window -- unknown error code "
+    const-string v6, "Unable to add window -- unknown error code "
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -16630,13 +16635,12 @@
     .line 513
     .restart local v14    # "compatibilityInfo":Landroid/content/res/CompatibilityInfo;
     .restart local v22    # "restore":Z
-    :cond_a
+    :cond_b
     const/4 v4, 0x0
 
     goto/16 :goto_0
 
-    .line 515
-    :cond_b
+    :cond_c
     :try_start_3
     move-object/from16 v0, p0
 
@@ -16718,33 +16722,27 @@
     :try_end_4
     .catchall {:try_start_4 .. :try_end_4} :catchall_1
 
-    .line 548
     .end local v16    # "e":Landroid/os/RemoteException;
     :catchall_1
     move-exception v4
 
-    .line 549
-    if-eqz v22, :cond_c
+    if-eqz v22, :cond_d
 
-    .line 550
     :try_start_5
     invoke-virtual/range {p2 .. p2}, Landroid/view/WindowManager$LayoutParams;->restore()V
 
-    .line 548
-    :cond_c
+    :cond_d
     throw v4
 
-    .line 571
     .restart local v21    # "res":I
     :pswitch_0
     new-instance v4, Landroid/view/WindowManager$BadTokenException;
 
-    .line 572
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string/jumbo v6, "Unable to add window -- token "
+    const-string v6, "Unable to add window -- token "
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -17059,18 +17057,16 @@
 
     move-result-object v5
 
-    .line 603
     invoke-direct {v4, v5}, Landroid/view/WindowManager$InvalidDisplayException;-><init>(Ljava/lang/String;)V
 
     throw v4
 
-    .line 611
-    :cond_d
+    :cond_e
     move-object/from16 v0, p1
 
     instance-of v4, v0, Lcom/android/internal/view/RootViewSurfaceTaker;
 
-    if-eqz v4, :cond_e
+    if-eqz v4, :cond_f
 
     .line 613
     move-object/from16 v0, p1
@@ -17083,27 +17079,23 @@
 
     move-result-object v4
 
-    .line 612
     move-object/from16 v0, p0
 
     iput-object v4, v0, Landroid/view/ViewRootImpl;->mInputQueueCallback:Landroid/view/InputQueue$Callback;
 
-    .line 615
-    :cond_e
+    :cond_f
     move-object/from16 v0, p0
 
     iget-object v4, v0, Landroid/view/ViewRootImpl;->mInputChannel:Landroid/view/InputChannel;
 
-    if-eqz v4, :cond_10
+    if-eqz v4, :cond_11
 
-    .line 616
     move-object/from16 v0, p0
 
     iget-object v4, v0, Landroid/view/ViewRootImpl;->mInputQueueCallback:Landroid/view/InputQueue$Callback;
 
-    if-eqz v4, :cond_f
+    if-eqz v4, :cond_10
 
-    .line 617
     new-instance v4, Landroid/view/InputQueue;
 
     invoke-direct {v4}, Landroid/view/InputQueue;-><init>()V
@@ -17123,8 +17115,7 @@
 
     invoke-interface {v4, v5}, Landroid/view/InputQueue$Callback;->onInputQueueCreated(Landroid/view/InputQueue;)V
 
-    .line 620
-    :cond_f
+    :cond_10
     new-instance v4, Landroid/view/ViewRootImpl$WindowInputEventReceiver;
 
     move-object/from16 v0, p0
@@ -17145,8 +17136,7 @@
 
     iput-object v4, v0, Landroid/view/ViewRootImpl;->mInputEventReceiver:Landroid/view/ViewRootImpl$WindowInputEventReceiver;
 
-    .line 624
-    :cond_10
+    :cond_11
     move-object/from16 v0, p1
 
     move-object/from16 v1, p0
@@ -17156,7 +17146,7 @@
     .line 625
     and-int/lit8 v4, v21, 0x1
 
-    if-eqz v4, :cond_14
+    if-eqz v4, :cond_15
 
     const/4 v4, 0x1
 
@@ -17168,7 +17158,7 @@
     .line 626
     and-int/lit8 v4, v21, 0x2
 
-    if-eqz v4, :cond_15
+    if-eqz v4, :cond_16
 
     const/4 v4, 0x1
 
@@ -17186,37 +17176,32 @@
 
     move-result v4
 
-    if-eqz v4, :cond_11
+    if-eqz v4, :cond_12
 
-    .line 629
     move-object/from16 v0, p0
 
     iget-object v4, v0, Landroid/view/ViewRootImpl;->mAccessibilityInteractionConnectionManager:Landroid/view/ViewRootImpl$AccessibilityInteractionConnectionManager;
 
     invoke-virtual {v4}, Landroid/view/ViewRootImpl$AccessibilityInteractionConnectionManager;->ensureConnection()V
 
-    .line 632
-    :cond_11
+    :cond_12
     invoke-virtual/range {p1 .. p1}, Landroid/view/View;->getImportantForAccessibility()I
 
     move-result v4
 
-    if-nez v4, :cond_12
+    if-nez v4, :cond_13
 
-    .line 633
     const/4 v4, 0x1
 
     move-object/from16 v0, p1
 
     invoke-virtual {v0, v4}, Landroid/view/View;->setImportantForAccessibility(I)V
 
-    .line 637
-    :cond_12
+    :cond_13
     invoke-virtual/range {p2 .. p2}, Landroid/view/WindowManager$LayoutParams;->getTitle()Ljava/lang/CharSequence;
 
     move-result-object v15
 
-    .line 638
     .local v15, "counterSuffix":Ljava/lang/CharSequence;
     new-instance v4, Landroid/view/ViewRootImpl$SyntheticInputStage;
 
@@ -17411,7 +17396,7 @@
     .end local v22    # "restore":Z
     .end local v24    # "viewPostImeStage":Landroid/view/ViewRootImpl$InputStage;
     .end local v25    # "viewPreImeStage":Landroid/view/ViewRootImpl$InputStage;
-    :cond_13
+    :cond_14
     monitor-exit p0
 
     .line 451
@@ -17421,18 +17406,16 @@
     .restart local v14    # "compatibilityInfo":Landroid/content/res/CompatibilityInfo;
     .restart local v21    # "res":I
     .restart local v22    # "restore":Z
-    :cond_14
+    :cond_15
     const/4 v4, 0x0
 
     goto/16 :goto_2
 
-    .line 626
-    :cond_15
+    :cond_16
     const/4 v4, 0x0
 
     goto/16 :goto_3
 
-    .line 568
     nop
 
     :pswitch_data_0
@@ -17888,4 +17871,65 @@
 
     .line 6240
     goto :goto_1
+.end method
+
+.method private isFlymeKeyguardAllowed(I)Z
+    .locals 1
+    .param p1, "res"    # I
+
+    .prologue
+    const/16 v0, -0x6f
+
+    if-ne p1, v0, :cond_0
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public mzGetMeizuFlags()I
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/view/ViewRootImpl;->mWindowAttributes:Landroid/view/WindowManager$LayoutParams;
+
+    iget v0, v0, Landroid/view/WindowManager$LayoutParams;->meizuFlags:I
+
+    return v0
+.end method
+
+.method public processEventForMoveWinIfNeed(Landroid/view/InputEvent;)V
+    .locals 1
+    .param p1, "event"    # Landroid/view/InputEvent;
+
+    .prologue
+    instance-of v0, p1, Landroid/view/MotionEvent;
+
+    if-eqz v0, :cond_0
+
+    move-object v0, p1
+
+    check-cast v0, Landroid/view/MotionEvent;
+
+    invoke-virtual {v0}, Landroid/view/MotionEvent;->getAction()I
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Landroid/view/ViewRootImpl;->mContext:Landroid/content/Context;
+
+    invoke-static {v0}, Lmeizu/view/MoveWinManager;->getInstance(Landroid/content/Context;)Lmeizu/view/MoveWinManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lmeizu/view/MoveWinManager;->processInputEvent(Landroid/view/InputEvent;)V
+
+    :cond_0
+    return-void
 .end method

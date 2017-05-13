@@ -65,27 +65,32 @@
     .param p2, "scrollState"    # I
 
     .prologue
-    .line 1836
+    iget-object v0, p0, Landroid/widget/ListPopupWindow$PopupScrollListener;->this$0:Landroid/widget/ListPopupWindow;
+
+    iget-boolean v0, v0, Landroid/widget/ListPopupWindow;->mMzKeepInputMethodNeeded:Z
+
+    if-eqz v0, :cond_0
+
+    return-void
+
+    :cond_0
     const/4 v0, 0x1
 
-    if-ne p2, v0, :cond_0
+    if-ne p2, v0, :cond_1
 
-    .line 1837
     iget-object v0, p0, Landroid/widget/ListPopupWindow$PopupScrollListener;->this$0:Landroid/widget/ListPopupWindow;
 
     invoke-virtual {v0}, Landroid/widget/ListPopupWindow;->isInputMethodNotNeeded()Z
 
     move-result v0
 
-    if-eqz v0, :cond_1
+    if-eqz v0, :cond_2
 
-    .line 1835
-    :cond_0
+    :cond_1
     :goto_0
     return-void
 
-    .line 1837
-    :cond_1
+    :cond_2
     iget-object v0, p0, Landroid/widget/ListPopupWindow$PopupScrollListener;->this$0:Landroid/widget/ListPopupWindow;
 
     invoke-static {v0}, Landroid/widget/ListPopupWindow;->-get2(Landroid/widget/ListPopupWindow;)Landroid/widget/PopupWindow;
@@ -96,7 +101,7 @@
 
     move-result-object v0
 
-    if-eqz v0, :cond_0
+    if-eqz v0, :cond_1
 
     .line 1838
     iget-object v0, p0, Landroid/widget/ListPopupWindow$PopupScrollListener;->this$0:Landroid/widget/ListPopupWindow;

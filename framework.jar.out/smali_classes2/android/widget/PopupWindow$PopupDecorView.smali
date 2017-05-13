@@ -315,6 +315,17 @@
     .param p1, "event"    # Landroid/view/MotionEvent;
 
     .prologue
+    invoke-direct/range {p0 .. p1}, Landroid/widget/PopupWindow$PopupDecorView;->onFlymeTouchEvent(Landroid/view/MotionEvent;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_0
     const/4 v4, 0x1
 
     .line 1973
@@ -338,56 +349,49 @@
 
     move-result v2
 
-    if-nez v2, :cond_2
+    if-nez v2, :cond_3
 
-    .line 1977
-    if-ltz v0, :cond_0
+    if-ltz v0, :cond_1
 
     invoke-virtual {p0}, Landroid/widget/PopupWindow$PopupDecorView;->getWidth()I
 
     move-result v2
 
-    if-lt v0, v2, :cond_1
+    if-lt v0, v2, :cond_2
 
-    .line 1978
-    :cond_0
+    :cond_1
     iget-object v2, p0, Landroid/widget/PopupWindow$PopupDecorView;->this$0:Landroid/widget/PopupWindow;
 
     invoke-virtual {v2}, Landroid/widget/PopupWindow;->dismiss()V
 
-    .line 1979
     return v4
 
-    .line 1977
-    :cond_1
-    if-ltz v1, :cond_0
+    .line 1980
+    :cond_2
+    if-ltz v1, :cond_1
 
     invoke-virtual {p0}, Landroid/widget/PopupWindow$PopupDecorView;->getHeight()I
 
     move-result v2
 
-    if-ge v1, v2, :cond_0
+    if-ge v1, v2, :cond_1
 
-    .line 1980
-    :cond_2
+    :cond_3
     invoke-virtual {p1}, Landroid/view/MotionEvent;->getAction()I
 
     move-result v2
 
     const/4 v3, 0x4
 
-    if-ne v2, v3, :cond_3
+    if-ne v2, v3, :cond_4
 
-    .line 1981
     iget-object v2, p0, Landroid/widget/PopupWindow$PopupDecorView;->this$0:Landroid/widget/PopupWindow;
 
     invoke-virtual {v2}, Landroid/widget/PopupWindow;->dismiss()V
 
-    .line 1982
     return v4
 
-    .line 1984
-    :cond_3
+    :cond_4
     invoke-super {p0, p1}, Landroid/widget/FrameLayout;->onTouchEvent(Landroid/view/MotionEvent;)Z
 
     move-result v2
@@ -519,4 +523,28 @@
     .end local v0    # "child":Landroid/view/View;
     :cond_2
     return-void
+.end method
+
+.method private onFlymeTouchEvent(Landroid/view/MotionEvent;)Z
+    .locals 3
+    .param p1, "event"    # Landroid/view/MotionEvent;
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/PopupWindow$PopupDecorView;->this$0:Landroid/widget/PopupWindow;
+
+    iget-object v0, v0, Landroid/widget/PopupWindow;->mMzHelper:Landroid/widget/MzPopupWindowHelper;
+
+    invoke-virtual {p0}, Landroid/widget/PopupWindow$PopupDecorView;->getWidth()I
+
+    move-result v1
+
+    invoke-virtual {p0}, Landroid/widget/PopupWindow$PopupDecorView;->getHeight()I
+
+    move-result v2
+
+    invoke-virtual {v0, p1, v1, v2}, Landroid/widget/MzPopupWindowHelper;->onTouchEvent(Landroid/view/MotionEvent;II)Z
+
+    move-result v0
+
+    return v0
 .end method
