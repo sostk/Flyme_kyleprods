@@ -54,7 +54,7 @@ vendor_remove_files := etc/permissions/org.cyanogenmod.livedisplay.xml
 # The default value is Bluetooth.
 # You can configure the apk name in the vendor/system/app or vendor/system/priv-app directory.
 #-----------------------------------------------------------------------------
-vendor_saved_apps := Bluetooth BluetoothMidiService HTMLViewer KeyChain PicoTts PrintSpooler Stk UserDictionaryProvider BackupRestoreConfirmation DefaultContainerService ExternalStorageProvider FusedLocation InputDevices ProxyHandler SharedStorageBackup Shell CMSettingsProvider telresources
+vendor_saved_apps := Bluetooth BluetoothMidiService HTMLViewer KeyChain PicoTts PrintSpooler Stk UserDictionaryProvider BackupRestoreConfirmation DefaultContainerService ExternalStorageProvider FusedLocation InputDevices ProxyHandler SharedStorageBackup Shell WAPPushManager CaptivePortalLogin webview CMSettingsProvider telresources
 
 ##############################################################################
 # The value decides which vendor apk you want to modify.
@@ -127,8 +127,8 @@ board_modify_apps := TeleService
 # The property decide whether hide the soft mainkeys.
 # If 1, hide the soft mainkeys. If 0, display the soft mainkeys.
 # You should configure the property according to your device.
-#override_property += \
-#    qemu.hw.mainkeys=0
+override_property += \
+    qemu.hw.mainkeys=1
 
 
 # The value of the property ro.flyme.romer will be contained in the ota package name.
@@ -139,15 +139,16 @@ board_modify_apps := TeleService
 # You should configure the property according to your device and your ID with replace the "Nexus-6P_Unofficial".
 override_property += \
     ro.flyme.romer=Unofficial \
-    ro.product.model_romer=kyleprods_Unofficial
+    ro.product.model_romer=kyleprods_swastik
+    persist.adb.notify=0 \
 
 ##############################################################################
 # The value decides which property you will remove from the build.prop.
 # The default value is nothing.
 # You can add the property name in the value from the build.prop.
 #-----------------------------------------------------------------------------
-# remove_property += \
-#     dev.defaultwallpaper
+remove_property += \
+    ro.build.selinux
 
 ##############################################################################
 # Defines whether uses assertions in /META-INF/com/google/android/updater-script of the OTA package.
@@ -181,6 +182,6 @@ PRODUCE_BLOCK_BASED_OTA := false
 # Defines whether build an international version of package.
 # Default: false
 #-----------------------------------------------------------------------------
-PRODUCE_INTERNATIONAL_ROM := true
+#PRODUCE_INTERNATIONAL_ROM := true
 
 include $(PORT_BUILD)/main.mk
